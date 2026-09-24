@@ -1,0 +1,4 @@
+interface:
+  display_name: "MML Build Workflow"
+  short_description: "Build MML scenes, games, and portable GLB assets"
+  default_prompt: "Use $mml-build-workflow to build and verify an MML scene for my target platform."

@@ -1,0 +1,51 @@
+<!-- Browser MML game. Do not claim Vibe Maker click support. Shared session state. -->
+<m-group id="beacon-installation">
+  <m-light type="point" x="-3" y="7" z="6" intensity="160" cast-shadows="false"></m-light>
+  <m-light type="point" x="4" y="5" z="-3" intensity="100" cast-shadows="false"></m-light>
+  <m-cube y="0.1" width="9" height="0.2" depth="5" color="#182a35"></m-cube>
+  <m-cube x="-3.5" y="1.9" z="-1" width="0.45" height="3.6" depth="0.6" color="#265665"></m-cube>
+  <m-cube x="3.5" y="1.9" z="-1" width="0.45" height="3.6" depth="0.6" color="#265665"></m-cube>
+  <m-cube y="3.7" z="-1" width="7.5" height="0.35" depth="0.6" color="#45d6cf"></m-cube>
+  <m-label id="status" y="4.4" z="-0.6" width="7.8" height="0.7" font-size="32" alignment="center" color="#182a35" font-color="#d6fffa" content="BEACON GATE / Click 1, then 2, then 3"></m-label>
+  <m-cube id="gate" y="1.6" z="-1" width="4" height="2.8" depth="0.25" color="#446174"></m-cube>
+  <m-cube id="pad-1" x="-2.4" y="0.8" z="1.1" width="1.5" height="1.2" depth="1.2" color="#dfad50"></m-cube>
+  <m-cube id="pad-2" y="0.8" z="1.1" width="1.5" height="1.2" depth="1.2" color="#dfad50"></m-cube>
+  <m-cube id="pad-3" x="2.4" y="0.8" z="1.1" width="1.5" height="1.2" depth="1.2" color="#dfad50"></m-cube>
+  <m-label x="-2.4" y="1.75" z="1.1" width="0.6" height="0.5" font-size="32" alignment="center" content="1" color="#182a35" font-color="#ffffff" collide="false"></m-label>
+  <m-label y="1.75" z="1.1" width="0.6" height="0.5" font-size="32" alignment="center" content="2" color="#182a35" font-color="#ffffff" collide="false"></m-label>
+  <m-label x="2.4" y="1.75" z="1.1" width="0.6" height="0.5" font-size="32" alignment="center" content="3" color="#182a35" font-color="#ffffff" collide="false"></m-label>
+  <m-cube id="reset" x="4" y="0.55" z="1.1" width="0.6" height="0.6" depth="0.6" color="#ba6676"></m-cube>
+  <m-label x="4" y="1.25" z="1.1" width="1" height="0.4" font-size="20" alignment="center" content="RESET" color="#182a35" font-color="#ffffff" collide="false"></m-label>
+<script>
+  // One authoritative document owns this cooperative sequence.
+  // Connection IDs are ephemeral; this example has no persistence or rewards.
+  const pads = [1, 2, 3].map(n => document.getElementById('pad-' + n));
+  const status = document.getElementById('status');
+  const gate = document.getElementById('gate');
+  let progress = 0;
+  function resetRound(message) {
+    progress = 0;
+    pads.forEach(p => p.setAttribute('color', '#dfad50'));
+    gate.setAttribute('y', '1.6');
+    status.setAttribute('content', message);
+  }
+  pads.forEach((pad, i) => pad.addEventListener('click', () => {
+    if (progress === 3) return;
+    if (i !== progress) {
+      resetRound('Wrong order / Start again: 1, 2, 3');
+      return;
+    }
+    progress += 1;
+    pad.setAttribute('color', '#45d6cf');
+    if (progress === 3) {
+      gate.setAttribute('y', '6');
+      status.setAttribute('content', 'GATE OPEN / Click RESET to play again');
+    } else {
+      status.setAttribute('content', 'BEACON GATE / ' + progress + ' of 3 charged');
+    }
+  }));
+  document.getElementById('reset').addEventListener('click', () => {
+    resetRound('BEACON GATE / Click 1, then 2, then 3');
+  });
+</script>
+</m-group>

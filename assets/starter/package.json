@@ -1,0 +1,15 @@
+{
+  "name": "mml-glb-starter",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "validate": "mml validate examples/scene.html",
+    "serve": "mml serve-dir examples --assets assets --host 127.0.0.1 --port 7079"
+  },
+  "devDependencies": {
+    "three": "0.186.0",
+    "@mml-io/mml-cli": "0.26.1",
+    "gltf-validator": "2.0.0-dev.3.10"
+  }
+}
