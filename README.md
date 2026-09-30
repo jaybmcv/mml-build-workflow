@@ -15,3 +15,7 @@ Maintain improvements as short dated field notes: environment, change, test, evi
 
 [Package validation](references/package-validation.md) records what was checked and what remains target-specific.
 
+
+## Full example build
+
+[Swamp Gatehouse](https://github.com/jaybmcv/swamp-gatehouse) is a complete worked example: ten rows, eighty doors, detailed timber architecture, procedural Three.js-to-GLB build scripts, MML runtime, local preview instructions and geometry validation. It includes generic public demo reset handling rather than a live world's access code. Target-world physics still needs testing for each deployed revision.
